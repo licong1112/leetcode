@@ -141,36 +141,3 @@ public class MultiplyString {
         return result;
     }
 }
-
-
-
-
-string multiply(string num1, string num2) {
-        if(num1.size() == 0 || num2.size() == 0) return "";
-        
-        int *array = new int[num1.size()+num2.size()+1];
-        for(int i = 0; i < num1.size()+num2.size(); ++i)
-            array[i] = 0;
-        
-        for(int i = num1.size(); i > 0; --i)
-        {
-            int carrier = 0;
-            for(int j = num2.size(); j > 0; --j)
-            {
-                int digit1 = num1[i-1]-'0';
-                int digit2 = num2[j-1]-'0';
-                int digit = (digit1*digit2 + carrier + array[i+j])%10;
-                carrier = (digit1*digit2 + carrier + array[i+j])/10;
-                array[i+j] = digit;
-            }
-            array[i] = carrier;
-        }
-        int i = 0;
-        while(array[i] == 0)
-            ++i;
-        string result;
-        while(i < num1.size()+num2.size())
-            result += (array[i]+'0');
-        delete[] array;
-        return result == "" ? "0" : result;
-    }

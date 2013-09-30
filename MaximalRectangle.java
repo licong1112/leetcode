@@ -29,7 +29,7 @@ package com.congli.leetcode;
 import java.util.Stack;
 
 public class MaximalRectangle {
-
+	
 	public int maximalRectangle(char[][] matrix) 
 	{
 	    if(matrix == null || matrix.length==0) return 0;

@@ -53,6 +53,7 @@ public class LinkedListCycleII {
     		}
     		--difference;
     	}
+        // Find the node that the two lists meet
     	while (head_1 != head_2) {
     		head_1 = head_1.next;
     		head_2 = head_2.next;

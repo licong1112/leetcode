@@ -14,23 +14,22 @@ public class BinaryTreePreorderTraversal {
 	
 	public ArrayList<Integer> preorderTraversal(TreeNode root) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
+		if (root == null) return result;
+		
 		Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode curr_node = root;
-        do {
-        	if (curr_node == null) {
-        		while (!stack.isEmpty() && stack.peek().right == null) {
-        			stack.pop();
-        		}
-        		if (stack.isEmpty()) {
-        			return result;
-        		} else {
-        			curr_node = stack.pop().right;
-        		}
-        	} 
+        TreeNode curr_node = null;
+        stack.push(root);
+        while (!stack.isEmpty()) {
+        	curr_node = stack.peek();
         	result.add(curr_node.val);
-			stack.push(curr_node);
-			curr_node = curr_node.left;
-        } while (!stack.isEmpty());
+        	stack.pop();
+    		if (curr_node.right != null) {
+    			stack.push(curr_node.right);
+    		}
+    		if (curr_node.left != null) {
+    			stack.push(curr_node.left);
+    		}
+        }
         
         return result;
     }

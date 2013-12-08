@@ -21,69 +21,64 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class MaxPointsOnALine {
-	
+
 	public int maxPoints(Point[] points) {
-        if (points.length < 2) return points.length;
-        HashMap<String, HashSet<Integer>> map = new HashMap<String, HashSet<Integer>>();
-        int max_point = 0;
-        String hash_str = "";
-        HashSet<Integer> set = null;
-        for (int i = 0; i < points.length-1; ++i) {
-        	for (int j = i+1; j < points.length; ++j) {
-        		hash_str = hash(points[i], points[j]);
+		if (points.length < 2) return points.length;
+			
+		HashMap<String, HashSet<Integer>> map = new HashMap<String, HashSet<Integer>>();
+		int max_point = 0;
+		String hash_str = "";
+		HashSet<Integer> set = null;
+		for (int i = 0; i < points.length - 1; ++i) {
+			for (int j = i + 1; j < points.length; ++j) {
+				hash_str = hash(points[i], points[j]);
 				if (map.containsKey(hash_str)) {
 					set = map.get(hash_str);
-					if (!set.contains(i)) {
-						set.add(i);
-					}
-					if (!set.contains(j)) {
-						set.add(j);
-					}
 				} else {
 					set = new HashSet<Integer>();
 					map.put(hash_str, set);
-					set.add(i);
-					set.add(j);
 				}
+				set.add(i);
+				set.add(j);
 				max_point = Math.max(max_point, set.size());
-        	}
-        }
-        return max_point;
-    }
-	
+			}
+		}
+		return max_point;
+	}
+
 	public String hash(Point point1, Point point2) {
 		int x1 = point1.x;
 		int x2 = point2.x;
 		int y1 = point1.y;
 		int y2 = point2.y;
-		
+
 		if (x1 == x2) {
 			return x1 + " Inf"; // infinite slope
 		} else if (y1 == y2) {
 			return y1 + " 0"; // 0 slope
 		} else {
-			int x_numerator = y1*(x2-x1) + x1*(y1-y2);
+			int x_numerator = y1 * (x2 - x1) + x1 * (y1 - y2);
 			int x_denominator = y1 - y2;
-			double x_intercept = (double)(x_numerator) / x_denominator;
-			double k = (double)(x_denominator)/(x1 - x2);
+			double x_intercept = (double) (x_numerator) / x_denominator;
+			double k = (double) (x_denominator) / (x1 - x2);
 			// Keep 3 digits after the decimal mark
-			return Math.round(x_intercept*1000)/1000.0 + " " + Math.round(k*1000)/1000.0;
-		}		
+			return Math.round(x_intercept * 1000) / 1000.0 + " "
+					+ Math.round(k * 1000) / 1000.0;
+		}
 	}
-	
+
 	class Point {
 		int x;
 		int y;
+
 		Point() {
 			x = 0;
 			y = 0;
 		}
+
 		Point(int a, int b) {
 			x = a;
 			y = b;
 		}
 	}
 }
-
-
-
